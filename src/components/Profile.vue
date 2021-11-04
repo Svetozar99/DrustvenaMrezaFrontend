@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
+    <header v-if="user != null" class="jumbotron">
       <h3>
-        <strong>{{currentUser.userName}}</strong> Profile
+        <strong>{{user.userName}}</strong> Profile
       </h3>
     </header>
     <p>
@@ -25,8 +25,16 @@
 </template>
 
 <script>
+import UserService from "../services/user.service";
+
+
 export default {
   name: 'Profile',
+  data(){
+    return {
+      user: null
+    }
+  },
   computed: {
     currentUser() {
         console.log(this.$store.state.auth.user);
@@ -37,6 +45,19 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+    UserService.getProfileUser().then(
+      (response) => {
+        this.user = response.data;
+      },
+      (error) => {
+        this.user = 
+          (error.response && 
+            error.response.data && 
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+      }
+    );
   }
 };
 </script>
