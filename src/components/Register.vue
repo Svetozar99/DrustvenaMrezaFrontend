@@ -119,7 +119,7 @@ export default {
       this.message = "";
       this.successful = false;
       this.loading = true;
-
+      console.log(this.$store.dispatch("auth/register", user) + ' dispatch');
       this.$store.dispatch("auth/register", user).then(
         (data) => {
           this.message = data.message;

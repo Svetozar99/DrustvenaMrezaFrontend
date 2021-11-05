@@ -7,6 +7,13 @@ class PostService {
     getHomePage(){
         return axios.get(API_URL + 'home', { headers: authHeader() });
     }
+
+    addPost(post){
+        return axios
+            .post(API_URL, {
+                body: post.body
+            } , { headers: authHeader() })
+    }
 }
 
 export default new PostService();
