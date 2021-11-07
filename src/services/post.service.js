@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:8080/api/post/';
 
 class PostService {
     getHomePage(){
-        return axios.get(API_URL + 'home', { headers: authHeader() });
+        return axios.get(API_URL + 'home-page', { headers: authHeader() });
     }
 
     addPost(post){
