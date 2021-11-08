@@ -9,11 +9,18 @@ class CommentService{
         return axios.get(API_URL + id,  { headers: authHeader() })
     }
 
-    addComment(comment, idPosta, idComment){
+    addComment(comment, idPosta){
         return axios
             .post(API_URL, {
                 postId: idPosta,
-                parentComment: idComment,
+                bodyComment: comment.bodyComment
+            }, { headers: authHeader() })
+    }
+
+    replyOnComment(comment,idComment){
+        return axios
+            .post(API_URL + 'comment-on-comment', {
+                commentId: idComment,
                 bodyComment: comment.bodyComment
             }, { headers: authHeader() })
     }
