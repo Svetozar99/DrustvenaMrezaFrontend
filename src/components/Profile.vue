@@ -6,10 +6,6 @@
       </h3>
     </header>
     <p>
-      <strong>Token:</strong>
-      {{currentUser.value.substring(0, 20)}} ... {{currentUser.value.substr(currentUser.value.length - 20)}}
-    </p>
-    <p>
       <strong>Id:</strong>
       {{currentUser.idUser}}
     </p>

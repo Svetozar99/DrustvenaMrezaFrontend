@@ -7,6 +7,14 @@ class UserService {
     getProfileUser(){
         return axios.get(API_URL + 'profile', { headers: authHeader() });
     }
+
+    search(value){
+        return axios.get(API_URL + 'search/' + value, { headers: authHeader() })
+    }
+
+    getOne(id){
+        return axios.get(API_URL + id, { headers: authHeader() })
+    }
 }
 
 export default new UserService();

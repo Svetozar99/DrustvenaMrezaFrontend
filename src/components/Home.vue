@@ -5,16 +5,19 @@
       <h6>{{p.userDTO.lastName }} {{p.userDTO.firstName}}</h6>
       <h3>{{ p.body }}</h3>
 
-      <button class="btn btn-danger btn-block" @click="getComments()">Show comments</button>
+      <div>
+        <button class="btn btn-danger btn-block" @click="getComments()">Show comments</button>
+        <button class="btn btn-success btn-block" v-if="!show" @click="buttonAdd(p.id)">Add comment</button>
+      </div>
       
         <div v-if="showComments">
-          <div v-for="c in p.comments" :key="c.bodyComment">
+          <div class="d-block p-2 bg-primary text-white" v-for="c in p.comments" :key="c.bodyComment">
             <ul id="co">
               <li>
                 {{c.bodyComment}}
-                <div style="height:50px; width:50%" v-for="co in c.commentDTOS" :key="co.id">
+                <div class="d-block p-2 bg-dark text-white" v-for="co in c.commentDTOS" :key="co.id">
                   <ul id="commm">
-                    <li>
+                    <li class="d-inline-flex p-2 bd-highlight">
                       {{co.bodyComment}}
                     </li>
                   </ul>
@@ -25,7 +28,7 @@
           </div>
       </div>
 
-      <button class="btn btn-success btn-block" v-if="!show" @click="buttonAdd(p.id)">Add comment</button>
+      
       <div v-if="show">
       <Form @submit="addComment" :validation-schema="schema">
         <div v-if="!successful">
@@ -188,10 +191,4 @@ export default {
 </script>
 
 <style scoped>
-  #commm{
-    background-color: blueviolet;
-  }
-  #co{
-    background-color: chartreuse;
-  }
 </style>

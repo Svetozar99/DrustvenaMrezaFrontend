@@ -3,6 +3,7 @@ import Home from "./components/Home.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import AddPost from "./components/AddPost.vue";
+import OneUser from "./components/OneUser.vue";
 // lazy-loaded
 const Profile = () => import("./components/Profile.vue");
 // const AddPost = () => import("./components/AddPost.vue");
@@ -24,6 +25,11 @@ const routes = [
     name: "Home",
     path: "/",
     component: Home,
+  },
+  {
+    name: "OneUser",
+    path: "/user/:id",
+    component: OneUser,
   },
   {
     name:"Home",
