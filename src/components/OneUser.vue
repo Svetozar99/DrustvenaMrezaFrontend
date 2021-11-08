@@ -4,36 +4,35 @@
       <h3>
         <strong>{{user.userName}}</strong> Profile
       </h3>
+
+      <div>
+        <!-- v-for="r in isend" :key="r.id" -->
+        <div>
+          <!-- v-if="r.receiver.id != user.id" -->
+          <button class="btn btn-success btn-block" @click="sendRequest(user.userName)">Send Request</button>
+        </div>
+      </div>
     </header>
-    <!-- <p>
-      <strong>Token:</strong>
-      {{currentUser.value.substring(0, 20)}} ... {{currentUser.value.substr(currentUser.value.length - 20)}}
-    </p> -->
-    <!-- <p>
-      <strong>Id:</strong>
-      {{user.id}}
-    </p> -->
-    <!-- <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="role in currentUser.roles" :key="role">{{role}}</li>
-    </ul> -->
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import UserService from '../services/user.service';
+import RequstFollowService from '../services/follow-request.service';
 export default {
     name: 'OneUser',
-    // props: ['id'],
+    created(){
+        let user = JSON.parse(localStorage.getItem('user'));
+        axios.defaults.headers['X-Auth-Token'] = `${user.value}`
+        this.requestISender();
+    },
     data(){
         return {
             user: null,
             isSend:false,
-            requests:[]
+            requests:[],
+            isend: []
         }
     },
     mounted(){
@@ -51,6 +50,40 @@ export default {
                     error.toString();
                 }
             );
+    },
+    methods:{
+      sendRequest(uname){
+        RequstFollowService.sendRequest(uname).then(
+          (response) => {
+                    console.log(response.data)
+                    this.requests = response.data;
+                },
+                (error) => {
+                    this.requests = 
+                    (error.response && 
+                        error.response.data && 
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                }
+            );
+      },
+      requestISender(){
+        RequstFollowService.requestISend().then(
+          (response) => {
+            console.log(response.data);
+            this.isend = response.data;
+          },
+          (error) => {
+            this.isend = 
+            (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+          }
+        )
+      }
     }
 }
 </script>
