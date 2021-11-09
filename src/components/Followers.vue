@@ -2,7 +2,7 @@
     <h3>Followers: {{this.followers.length}}</h3>
     <div v-for="f in followers" :key="f.id" class="grid">
         <div class="g-col-6">{{f.sender.userName}}</div>
-        <div class="g-col-6">{{f.receiver.firstName }} {{ f.receiver.lastName}}</div>
+        <div class="g-col-6">{{f.sender.firstName }} {{ f.sender.lastName}}</div>
         <p>----------------------------------------------------------</p>
     </div>
 </template>
