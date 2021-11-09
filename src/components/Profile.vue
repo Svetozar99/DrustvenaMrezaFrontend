@@ -1,4 +1,17 @@
 <template>
+  <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link to="/followees" class="nav-link">
+            <font-awesome-icon icon="home" /> Followees {{this.followees.length}}
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/followers" class="nav-link">
+            <font-awesome-icon icon="home" /> Followers {{this.followers.length}}
+          </router-link>
+        </li>
+      </div>
+
   <div class="container">
     <header v-if="user != null" class="jumbotron">
       <h3>
@@ -22,13 +35,16 @@
 
 <script>
 import UserService from "../services/user.service";
+import FollowingService from '../services/following.service';
 
 
 export default {
   name: 'Profile',
   data(){
     return {
-      user: null
+      user: null,
+      followees:[],
+      followers:[]
     }
   },
   computed: {
@@ -49,6 +65,33 @@ export default {
         this.user = 
           (error.response && 
             error.response.data && 
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+      }
+    );
+    FollowingService.getFollowees().then(
+      (response) => {
+        this.followees = response.data;
+        console.log(this.followees.length + ' followees')
+      },
+      (error) => {
+        this.followees =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+      }
+    );
+    FollowingService.getFollowers().then(
+      (response) => {
+        this.followers = response.data;
+      },
+      (error) => {
+        this.followers =
+          (error.response &&
+            error.response.data &&
             error.response.data.message) ||
           error.message ||
           error.toString();

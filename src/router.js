@@ -4,6 +4,9 @@ import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import AddPost from "./components/AddPost.vue";
 import OneUser from "./components/OneUser.vue";
+import Followees from './components/Followees.vue'
+import Followers from './components/Followers.vue'
+
 // lazy-loaded
 const Profile = () => import("./components/Profile.vue");
 // const AddPost = () => import("./components/AddPost.vue");
@@ -35,6 +38,16 @@ const routes = [
     name:"Home",
     path: "/home",
     component: Home,
+  },
+  {
+    name:"Followees",
+    path: "/followees",
+    component: Followees,
+  },
+  {
+    name:"Followers",
+    path: "/followers",
+    component: Followers,
   },
   {
     path: "/profile",
